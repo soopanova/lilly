@@ -17,9 +17,19 @@ router.post('/', function(req, res){
 			"<br> <a href=http://localhost:3000> Back </a>";
 	res.send(html);
 
+	json = "{_id : " + shorturl + ", longURL : " + name + ", shortURL : " + shorturl + "}";
+
+	console.log(json);
+
+	//------Inserting new record
+	couch.insert("lillly", json, function(err, resData){
+		if(err)
+			return console.error(err);
+		console.dir(resData)
+	});
 	
 	/* ------Get a record
-	couch.get('lilly', 'd82a40cd04f1d4064856c40c7d000906', function(err, resData) {
+	/*couch.get('lilly', 'd82a40cd04f1d4064856c40c7d000906', function(err, resData) {
 		if(err)
 			return console.error(err);
 		console.dir(resData);
