@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var nodeCouchDB = require('node-couchdb');
-var couch = new nodeCouchDB('localhost', 5984);
+var nano = require('nano')('http://localhost:5984');
+var db_name = "lilly";
+var db = nano.use(db_name);
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,12 +22,14 @@ router.post('/', function(req, res){
 
 	console.log(json);
 
-	//------Inserting new record
-	couch.insert("lillly", json, function(err, resData){
-		if(err)
-			return console.error(err);
-		console.dir(resData)
+	
+
+	/*------Inserting new record
+	db.insert('testdoc', json, function(err, body){
+		if(!err)
+			console.log("something " + body);
 	});
+	*/
 	
 	/* ------Get a record
 	/*couch.get('lilly', 'd82a40cd04f1d4064856c40c7d000906', function(err, resData) {
