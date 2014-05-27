@@ -29,7 +29,7 @@ router.post('/', function(req, res){
 
 	//------Inserting new record
 	
-	db.insert(json_object, id, function(err, body){
+	db.insert(json_object, shorturl, function(err, body){
 		if(err)
 			console.log("something went wrong: " + err);
 	});
