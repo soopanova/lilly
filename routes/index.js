@@ -12,41 +12,32 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res){
 	var name = req.body.fname;
 	var shorturl = Math.random().toString(36).slice(-8);
-	
-
-	// html = "<a href='" + name + "'> http://lil.ly/"+ shorturl + "</a>" +
-	// 		"<br> <a href=http://localhost:3000> Back </a>";
-	// res.send(html);
 
 	id = '"_id": "'+shorturl+'"';
-	console.log(id);
+	//console.log(id);
 
 	longu = '"longURL": "' + name + '"';
-	console.log(longu);
-
-	//var twoSlash = "\\\\";
-	//console.log(twoSlash);
+	//console.log(longu);
 	
 	shortu = '"shortURL": "http://lil.ly/' + shorturl + '"';
-	console.log(shortu);
+	//console.log(shortu);
 
-	json = '{' + id + ',' + longu + ',' + shortu + '}';
-	console.log(json);
+	//creating JSON type string the converting it to actual JSON
+	json_type = '{' + id + ',' + longu + ',' + shortu + '}';
+	json_object = eval("(" + json_type + ")");
+	//console.log(json_object);
 
 	//------Inserting new record
-	/*
-	db.insert(json, function(err, body){
+	
+	db.insert(json_object, id, function(err, body){
 		if(err)
 			console.log("something went wrong: " + err);
-	});*/
+	});
+
+	html = "<a href='" + name + "'> http://lil.ly/"+ shorturl + "</a>" +
+	 		"<br> <a href=http://localhost:3000> Back </a>";
+	 res.send(html);
 	
-	
-	/* ------Get a record
-	/*couch.get('lilly', 'd82a40cd04f1d4064856c40c7d000906', function(err, resData) {
-		if(err)
-			return console.error(err);
-		console.dir(resData);
-	});*/
 });
 
 module.exports = router;
