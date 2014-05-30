@@ -37,4 +37,8 @@ sftp-config.json
 
 ### Node
 node_modules/
+<<<<<<< HEAD
 data/
+=======
+data/
+>>>>>>> a1e0d82b5763b891d4b04d4b3bae4f873683dc76
