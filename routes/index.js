@@ -3,12 +3,13 @@ var router = express.Router();
 var nano = require('nano')('http://localhost:5984');
 var db_name = "lilly";
 var db = nano.use(db_name);
-
+var pat = '/([a-z]|[0-9]|[A-Z]){8}';
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+/* POST the shortURL and saving to the databae*/
 router.post('/', function(req, res){
 	var name = req.body.fname;
 	var shorturl = Math.random().toString(36).slice(-8);
@@ -39,5 +40,10 @@ router.post('/', function(req, res){
 	 res.send(html);
 	
 });
+
+router.get(/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
+	console.log("hello world");
+})
+
 
 module.exports = router;
