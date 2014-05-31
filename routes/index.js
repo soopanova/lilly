@@ -42,9 +42,17 @@ router.post('/', function(req, res){
 });
 
 router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
-	console.log("hello world");
-	res.send("hello");
-})
+	var urlRaw = req.url;
+	var key  = '"' + urlRaw.substr(1,8) + '"';
+	
+	db.get(key,function(err, body){
+		if(err)
+			console.log("something went in the get " + err);
+		console.log(body);
+	});
+
+	res.send(key);
+});
 
 
 module.exports = router;
