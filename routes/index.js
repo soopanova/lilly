@@ -41,8 +41,9 @@ router.post('/', function(req, res){
 	
 });
 
-router.get(/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
+router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 	console.log("hello world");
+	res.send("hello");
 })
 
 
