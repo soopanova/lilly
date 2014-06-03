@@ -50,7 +50,7 @@ router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 			console.log("something went wrong in the get " + err);
 		console.log(body);
 	});
-	console.log(nano.dinosaur());
+	
 	res.send(key);
 });
 
