@@ -47,19 +47,27 @@ router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 	var b;
 	console.log(key);
 
-	db.get(key,function(err, body){
+	getURL(key);
+
+	//console.log('out of first function');
+
+	res.send(key);
+});
+
+function getURL(key){
+
+		var b;
+
+		db.get(key,function(err, body){
 		if(err)
 			console.log("something went wrong in the get " + err);
 		console.log(body);
 		b = (body.longURL);
-
-		//console.log(typeof body);
+		console.log(b);
 	});
+		//console.log("Second time: " + b);
 
-	console.log('out of first function');
-
-	res.send(key);
-});
+}
 
 
 module.exports = router;
