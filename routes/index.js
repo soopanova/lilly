@@ -44,13 +44,20 @@ router.post('/', function(req, res){
 router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 	var urlRaw = req.url;
 	var key  =  urlRaw.substr(1,8);
+	var b;
 	console.log(key);
+
 	db.get(key,function(err, body){
 		if(err)
 			console.log("something went wrong in the get " + err);
 		console.log(body);
+		b = (body.longURL);
+
+		//console.log(typeof body);
 	});
-	
+
+	console.log('out of first function');
+
 	res.send(key);
 });
 
