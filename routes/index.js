@@ -45,26 +45,24 @@ router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 	var urlRaw = req.url;
 	var key  =  urlRaw.substr(1,8);
 	var b;
-	console.log(key);
+	//console.log(key);
 
-	getURL(key);
-
-	//console.log('out of first function');
-
+	
+	console.log("last line");
 	res.send(key);
 });
 
-function getURL(key){
+function getURL(callback){
 
 		var b;
 
-		db.get(key,function(err, body){
+		db.get(key,function db_lookup(err, body){
 		if(err)
 			console.log("something went wrong in the get " + err);
-		console.log(body);
-		b = (body.longURL);
-		console.log(b);
-	});
+		console.log(body.longURL);
+		//return body.longURL;
+		callback();
+	})
 		//console.log("Second time: " + b);
 
 }
