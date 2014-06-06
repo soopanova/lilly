@@ -43,28 +43,29 @@ router.post('/', function(req, res){
 
 router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
 	var urlRaw = req.url;
-	var key  =  urlRaw.substr(1,8);
-	var b;
-	//console.log(key);
+		var key  =  urlRaw.substr(1,8);
+		var b;
+		//console.log(key);
 
-	
-	console.log("last line");
-	res.send(key);
+		getURL(key, res);
+
+		console.log("last line");
+		//res.send(key);
 });
 
-function getURL(callback){
+function getURL(key, res){
 
 		var b;
 
-		db.get(key,function db_lookup(err, body){
+		db.get(key,function(err, body){
 		if(err)
 			console.log("something went wrong in the get " + err);
 		console.log(body.longURL);
-		//return body.longURL;
-		callback();
+		//res.send("hello");
+		res.writeHead(301, {Location: body.longURL});
+		res.end();
+		return body.longURL;
 	})
-		//console.log("Second time: " + b);
-
 }
 
 
