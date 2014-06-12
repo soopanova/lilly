@@ -41,7 +41,7 @@ router.post('/', function(req, res){
 	
 });
 
-router.get(/^\/([a-z]|[0-9]|[A-Z]){8}/, function(req, res){
+router.get('/\/([a-z]|[0-9]|[A-Z]){8}', function(req, res){
 	var urlRaw = req.url;
 		var key  =  urlRaw.substr(1,8);
 		var b;
