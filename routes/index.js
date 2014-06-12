@@ -63,7 +63,7 @@ function getURL(key, res){
 		console.log(body.longURL);
 		//res.send("hello");
 		res.writeHead(301, {Location: body.longURL});
-		res.end();
+		res.end();	
 		return body.longURL;
 	})
 }
