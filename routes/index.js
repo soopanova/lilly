@@ -41,11 +41,12 @@ router.post('/', function(req, res){
 	
 });
 
-router.get('((\d|\w){8})', function(req, res){
+router.get('/([A-Za-z0-9]{8})', function(req, res){
+	
 	var urlRaw = req.url;
-		var key  =  urlRaw.substr(1,8);
-		var b;
-		//console.log(key);
+	var key  =  urlRaw.substr(1,8);
+	var b;
+	
 
 		getURL(key, res);
 
