@@ -45,13 +45,11 @@ router.get('/([A-Za-z0-9]{8})', function(req, res){
 	
 	var urlRaw = req.url;
 	var key  =  urlRaw.substr(1,8);
-	var b;
 	
+	console.log(getURL(key, res));
 
-		getURL(key, res);
-
-		console.log("last line");
-		//res.send(key);
+	console.log("last line");
+	//res.send(key);
 });
 
 function getURL(key, res){
@@ -59,13 +57,18 @@ function getURL(key, res){
 		var b;
 
 		db.get(key,function(err, body){
-		if(err)
-			console.log("something went wrong in the get " + err);
-		console.log(body.longURL);
-		//res.send("hello");
-		res.writeHead(301, {Location: body.longURL});
-		res.end();	
-		return body.longURL;
+		if(err){
+			console.log("error on query: " + err);
+			return err;
+		}
+		else{
+			console.log(body.longURL);
+			res.send("hello");
+			res.writeHead(301, {Location: body.longURL});
+			res.end();
+			return body.longURL;	
+		}
+		
 	})
 }
 
