@@ -46,20 +46,44 @@ router.get('/([A-Za-z0-9]{8})', function(req, res){
 	var urlRaw = req.url;
 	var key  =  urlRaw.substr(1,8);
 	
-	console.log(getURL(key, res));
+	//console.log(getURL(key, res));
+	db.get(key,function(err, body){
+		if(!err){
+			console.log(body.longURL);
+			//res.send("hello");
+			res.writeHead(301, {Location: body.longURL});
+			res.end();
+			console.log("error on query 1111: " + err);
+			
+		}
+		else if(err.message==='missing'){
 
-	console.log("last line");
+			console.log("Not in the database");
+
+		}
+		else if(err){
+			
+			console.log("Something went wrong: " + err);
+		}
+		
+	});
+
+	//console.log("last line");
 	//res.send(key);
 });
-
+/*
 function getURL(key, res){
 
-		var b;
-
+		//console.log('in get URL');
 		db.get(key,function(err, body){
-		if(err){
-			console.log("error on query: " + err);
+		if(err.message ==='issing'){
+			console.log("error on query 1111: " + err);
 			return err;
+		}
+		else if(err.message==='missing'){
+
+			console.log("Not in the database")
+
 		}
 		else{
 			console.log(body.longURL);
@@ -69,8 +93,8 @@ function getURL(key, res){
 			return body.longURL;	
 		}
 		
-	})
+	});
 }
-
+*/
 
 module.exports = router;
