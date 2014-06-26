@@ -3,7 +3,7 @@ var router = express.Router();
 var nano = require('nano')('http://localhost:5984');
 var db_name = "lilly";
 var db = nano.use(db_name);
-var pat = '/([a-z]|[0-9]|[A-Z]){8}';
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
@@ -41,6 +41,16 @@ router.post('/', function(req, res){
 	
 });
 
+router.get('/random', function(req, res){
+	db.list(function(err, res){
+		if(!err){
+			res.rows.forEach(function(doc){
+				console.log(doc.id);
+			});
+		}
+	});
+});
+
 router.get('/([A-Za-z0-9]{8})', function(req, res){
 	
 	var urlRaw = req.url;
@@ -50,15 +60,14 @@ router.get('/([A-Za-z0-9]{8})', function(req, res){
 	db.get(key,function(err, body){
 		if(!err){
 			console.log(body.longURL);
-			//res.send("hello");
 			res.writeHead(301, {Location: body.longURL});
-			res.end();
-			console.log("error on query 1111: " + err);
-			
+			res.end();	
 		}
+		
 		else if(err.message==='missing'){
 
-			console.log("Not in the database");
+			//console.log("Not in the database");
+			res.render('nodb', { title: 'Express' });
 
 		}
 		else if(err){
@@ -68,33 +77,7 @@ router.get('/([A-Za-z0-9]{8})', function(req, res){
 		
 	});
 
-	//console.log("last line");
-	//res.send(key);
 });
-/*
-function getURL(key, res){
 
-		//console.log('in get URL');
-		db.get(key,function(err, body){
-		if(err.message ==='issing'){
-			console.log("error on query 1111: " + err);
-			return err;
-		}
-		else if(err.message==='missing'){
-
-			console.log("Not in the database")
-
-		}
-		else{
-			console.log(body.longURL);
-			res.send("hello");
-			res.writeHead(301, {Location: body.longURL});
-			res.end();
-			return body.longURL;	
-		}
-		
-	});
-}
-*/
 
 module.exports = router;
